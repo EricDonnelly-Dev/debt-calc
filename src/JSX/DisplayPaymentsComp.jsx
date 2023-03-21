@@ -1,11 +1,16 @@
 import React from "react";
 class DisplayPaymentsComp extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    return <div></div>;
+    const { payments } = this.props;
+    return (
+      <div>
+        <ul>
+          {payments.map((item) => (
+            <li key={item.id}>${item.payment}</li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 }
 export default DisplayPaymentsComp;
