@@ -2,6 +2,7 @@ import React from "react";
 import DisplayPaymentsComp from "./DisplayPaymentsComp";
 
 class FormComp extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -14,30 +15,31 @@ class FormComp extends React.Component {
       interestRate: 0,
     };
   }
+
   handleInput = ({ target }) => {
     this.setState({ [target.id]: target.value });
     this.calcMinimum();
   };
+
   calcMinimum = () => {
     const { principal, interestRate } = this.state;
     let minPay,
       interestPayment = 0,
       principalPayment = 0;
     if (principal > 100) {
-      interestPayment = parseFloat(
-        (principal * (interestRate / 100 / 12)).toFixed(2)
-      );
+      interestPayment = parseFloat((principal * (interestRate / 100 / 12)).toFixed(2));
       principalPayment = parseFloat((principal * 0.01).toFixed(2));
       minPay = parseFloat((principalPayment + interestPayment).toFixed(2));
-    } else {
-      minPay = parseFloat(principal + principal * 0.01);
-    }
+    } 
+    else minPay = parseFloat(principal + principal * 0.01);
+    
     this.setState({
       minPayment: minPay.toFixed(2),
       principalMinPay: principalPayment.toFixed(2),
       interestPay: interestPayment.toFixed(2),
     });
   };
+
   calculateNewBalance = (payment) => {
     const { principal, interestPay } = this.state;
     const amountPaidToPrincipal = payment - interestPay;
@@ -46,6 +48,7 @@ class FormComp extends React.Component {
       principal: newPrincipal.toFixed(2),
     });
   };
+
   calculatePayment = () => {
     const { minPayment, payment, interestPay } = this.state;
     const newPayment = payment > minPayment ? payment - interestPay : payment;
@@ -53,6 +56,7 @@ class FormComp extends React.Component {
       payment: newPayment,
     });
   };
+
   submitPayment = (e) => {
     e.preventDefault();
     this.calculatePayment();
@@ -61,6 +65,7 @@ class FormComp extends React.Component {
     this.calcMinimum();
     const newPayment = {
       id: Date.now(),
+      
       payment: payment,
     };
     this.setState((state) => ({
@@ -68,10 +73,12 @@ class FormComp extends React.Component {
       payment: 0,
     }));
   };
+
+
   render() {
     const { payment, minPayment, principal, interestRate } = this.state;
     return (
-      <div>
+      <div className="calcWrapper">
         <form onSubmit={this.submitPayment}>
           <fieldset>
             <label htmlFor="principal"> Total Debt Amount</label>

@@ -4,11 +4,11 @@ class DisplayPaymentsComp extends React.Component {
     const { payments } = this.props;
     return (
       <div>
-        <ul>
+        <ol>
           {payments.map((item) => (
             <li key={item.id}>${item.payment}</li>
           ))}
-        </ul>
+        </ol>
       </div>
     );
   }
