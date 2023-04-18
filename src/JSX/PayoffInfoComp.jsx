@@ -1,16 +1,16 @@
 import React from "react";
 
-class PayoffInfoComp extends React.Component {
-render() {  
+function PayoffInfoComp(props){
+const {principal,minPayment,paymentsRemaining} = props;
+
 return (
     <div className="payoffWrapper">
         <h2>Payoff Info</h2>
-        <p>Minimum Payment: ${this.props.minPayment}</p>
-        <p>Principal: ${this.props.principal}</p>
-        <p>Payments Remaining: ${this.props.paymentsRemaining}</p>
+        <p>Principal: ${principal}</p>
+        <p>Minimum Payment: ${minPayment}</p>
+        <p>Payments Remaining: {paymentsRemaining}</p>
     </div>
 )
-    }
 }
 
 export default PayoffInfoComp;
