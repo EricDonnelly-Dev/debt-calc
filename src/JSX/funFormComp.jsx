@@ -1,20 +1,9 @@
-import React,{useState,useEffect,useCallback} from "react";
+import React from "react";
 import DisplayPaymentsComp from "./DisplayPaymentsComp";
 
 function FunFormComp(props) {
   const { principal, interestRate,interestPay,payment,minPayment,postedPayments} = props.data;
-  const {handleChange} =props;
-
-// TODO: This is just a filler function until I implement it properly
-const setFormData = ((prevFormData) => ({  
-  ...prevFormData,
-  principal: principal,
-  interestRate: interestRate,
-  interestPay: interestPay,
-  payment: payment,
-  minPayment: minPayment,
-  postedPayments: postedPayments,
-}));
+  const {handleChange,setFormData} =props;
 
   const calculateNewBalance = 
   (payment) => {
@@ -27,7 +16,6 @@ const setFormData = ((prevFormData) => ({
   }
 
 const calculatePayment = () => {
-  
   const newPayment =
     payment > minPayment ? payment - interestPay : payment;
   setFormData((prevFormData) => ({
@@ -36,6 +24,14 @@ const calculatePayment = () => {
   })); 
 };
     
+const calcPaymentsRemaining = () => {
+  const paymentsRemaining = Math.ceil(principal / minPayment);
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    paymentsRemaining: paymentsRemaining
+  }));
+};
+
 const submitPayment = (e) => {
   e.preventDefault();
   const newPayment = {
@@ -44,7 +40,8 @@ const submitPayment = (e) => {
   };
   calculatePayment();
   calculateNewBalance(payment);
-  handleChange((prevFormData) => ({
+  calcPaymentsRemaining();
+  setFormData((prevFormData) => ({
     ...prevFormData,
     postedPayments: [...postedPayments, newPayment],
     payment: 0,
