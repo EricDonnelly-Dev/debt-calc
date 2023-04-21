@@ -5,12 +5,12 @@ import PayoffInfoComp from "./PayoffInfoComp";
 function CalcComp() {
   const [formData, setFormData] = useState({
     postedPayments: [],
-    minPayment: 0,
-    principal: 0,
-    principalMinPay: 0,
-    interestPay: 0,
-    payment: 0,
-    interestRate: 0,
+    minPayment: '',
+    principal: '',
+    principalMinPay: '',
+    interestPay: '',
+    payment: '',
+    interestRate: '',
   });
 
   const handleFormDataChange =  (event) => {

@@ -24,8 +24,8 @@ const calculatePayment = () => {
   })); 
 };
     
-const calcPaymentsRemaining = () => {
-  const paymentsRemaining = Math.ceil(principal / minPayment);
+const calcPaymentsRemaining = (lastPayment) => {
+  const paymentsRemaining = postedPayments.length === 0? Math.ceil(principal/minPayment):Math.ceil(principal / lastPayment)
   setFormData((prevFormData) => ({
     ...prevFormData,
     paymentsRemaining: paymentsRemaining
@@ -40,12 +40,12 @@ const submitPayment = (e) => {
   };
   calculatePayment();
   calculateNewBalance(payment);
-  calcPaymentsRemaining();
   setFormData((prevFormData) => ({
     ...prevFormData,
     postedPayments: [...postedPayments, newPayment],
-    payment: 0,
+    payment: '',
   }));
+  calcPaymentsRemaining(newPayment.payment);
 };
           
           
@@ -57,7 +57,7 @@ return (
             <input
               name="principal"
               id="principal"
-              type="number"
+              type="text"
               className="input"
               value={principal}
               onChange={handleChange}
@@ -81,7 +81,7 @@ return (
             <input
               name="payment"
               id="payment"
-              type="number"
+              type="text"
               className="input"
               value={payment}
               onChange={handleChange}
@@ -94,7 +94,7 @@ return (
             )}
           </fieldset>
           <input
-            disabled={payment < minPayment}
+            disabled={parseFloat(payment) < parseFloat(minPayment)}
             type={"submit"}
             value={"Calculate Debt"}
           />
