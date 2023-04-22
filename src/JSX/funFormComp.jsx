@@ -24,8 +24,12 @@ const calculatePayment = () => {
   })); 
 };
     
-const calcPaymentsRemaining = (lastPayment) => {
-  const paymentsRemaining = postedPayments.length === 0? Math.ceil(principal/minPayment):Math.ceil(principal / lastPayment)
+const calcPaymentsRemaining = () => {
+  let paymentsRemaining = 0;
+  if(principal < 100 ) {paymentsRemaining = 1 }
+  else{
+  paymentsRemaining = postedPayments.length === 0? Math.ceil(principal/minPayment):Math.ceil(principal / postedPayments[0].payment);
+  }
   setFormData((prevFormData) => ({
     ...prevFormData,
     paymentsRemaining: paymentsRemaining
@@ -99,7 +103,7 @@ return (
             value={"Calculate Debt"}
           />
         </form>
-        <DisplayPaymentsComp payments={postedPayments} />
+        <DisplayPaymentsComp  payments={postedPayments} />
       </div>
     )
 

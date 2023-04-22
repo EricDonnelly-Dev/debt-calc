@@ -17,8 +17,10 @@ code {
 }
 .calcWrapper,.payoffWrapper{
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 1rem;
+  justify-content: space-evenly;
+}
+.payoffWrapper{
+  margin-top: 2rem;
+  flex-direction: column;
 }

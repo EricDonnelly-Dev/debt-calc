@@ -3,7 +3,7 @@ class DisplayPaymentsComp extends React.Component {
   render() {
     const { payments } = this.props;
     return (
-      <div>
+      <div className="displayPayments">
         <ol>
           {payments.map((item) => (
             <li key={item.id}>${item.payment}</li>
