@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 import reportWebVitals from "./reportWebVitals";
-import CalculatorComp from "./JSX/CalculatorComp";
-import ParentComponent from "./JSX/testParent";
 import CalcComp from "./JSX/CalcComp";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

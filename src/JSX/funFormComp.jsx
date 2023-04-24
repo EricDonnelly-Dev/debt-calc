@@ -51,52 +51,35 @@ const submitPayment = (e) => {
   }));
   calcPaymentsRemaining(newPayment.payment);
 };
-          
-          
+
+const inputData = [
+  { name: "principal", value: principal,label:"Total Debt Remaining" },
+  { name: "interestRate", value: interestRate,label:"Interest Rate"},
+  { name: "payment", value: payment,label:"Payment" },
+];
+            
 return (
     <div className="calcWrapper">
         <form onSubmit={submitPayment}>
-          <fieldset>
-            <label htmlFor="principal"> Total Debt Amount</label>
-            <input
-              name="principal"
-              id="principal"
-              type="text"
-              className="input"
-              value={principal}
-              onChange={handleChange}
-              onBlur={handleChange}
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="interestRate"> Interest Rate</label>
-            <input
-              name="interestRate"
-              id="interestRate"
-              type="text"
-              className="input"
-              value={interestRate}
-              onChange={handleChange}
-              onBlur={handleChange}
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="payment">Payment Amount</label>
-            <input
-              name="payment"
-              id="payment"
-              type="text"
-              className="input"
-              value={payment}
-              onChange={handleChange}
-              onBlur={handleChange}
-            />
-            {principal > 0 && interestRate > 0 && (
+          {inputData.map((input) => (
+            <fieldset key={input.name}>
+              <label htmlFor={input.name}>{input.label}</label>
+              <input
+                name={input.name}
+                id={input.name}
+                type="text"
+                className="input"
+                value={input.value}
+                onChange={handleChange}
+                onBlur={handleChange}
+              />
+              {(input.name === 'payment'&& (principal > 0 && interestRate > 0)) && (
               <small>
                 $ {minPayment} is the minimum payment
               </small>
             )}
-          </fieldset>
+            </fieldset>
+          ))}
           <input
             disabled={parseFloat(payment) < parseFloat(minPayment)}
             type={"submit"}
